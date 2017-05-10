@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=1.0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+<title>multiscroll.js我的初中同学</title>
+<link rel="stylesheet" href="css/jquery.multiscroll.css">
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/jquery.multiscroll.min.js"></script>
+<style>
+* { margin: 0; padding: 0;}
+body { font-size: 100%;}
+h1, h2, h3, h4, h5, h6 { font-size: 100%;}
+
+.loading { 
+	background: url(img/loading.gif) 50% no-repeat;
+}
+.loading .dowebok-Wrap { 
+	opacity: 0;
+}
+.dowebok-Wrap {
+ -webkit-transition:opacity 1s;
+  -moz-transition:opacity 1s;
+   -o-transition:opacity 1s;
+    transition: opacity 1s;
+}
+
+.ms-section { font-family: "Microsoft Yahei"; color: #fff;}
+.ms-section { 
+	background-position: 50% 50%; 
+	background-repeat: no-repeat; 
+	background-size: cover;
+}
+.ms-section10 { background-color: #000;}
+
+.ms-left .ms-section1 { background-image: url(img/5.jpg);}
+.ms-left .ms-section2 { background-image: url(img/6.jpg);}
+.ms-left .ms-section3 { background-color: #000;}
+.ms-left .ms-section4 { background-image: url(img/7.jpg);}
+.ms-left .ms-section4.down { background-image: url(img/8.jpg);}
+.ms-left .ms-section5 { background-image: url(img/9.jpg);}
+.ms-left .ms-section6 { background-image: url(img/10.jpg);}
+.ms-left .ms-section7 { background-image: url(img/11.jpg);}
+.ms-left .ms-section8 { background-color: #000;}
+.ms-left .ms-section9 { background-image: url(img/12.jpg);}
+
+.ms-right .ms-section1 { background-image: url(img/13.jpg);}
+.ms-right .ms-section2 { background-image: url(img/14.jpg);}
+.ms-right .ms-section3 { background-image: url(img/15.jpg);}
+.ms-right .ms-section3.turnOn { background-image: url(img/16.jpg);}
+.ms-right .ms-section4 { background-color: #000;}
+.ms-right .ms-section5 { background-image: url(img/17.jpg);}
+.ms-right .ms-section6 { background-image: url(img/18.jpg);}
+.ms-right .ms-section7 { background-color: #000;}
+.ms-right .ms-section8 { background-image: url(img/18.jpg);}
+.ms-right .ms-section9 { background-image: url(img/9.jpg);}
+
+.ms-left .ms-section1 h1 strong { line-height: 1.1em;
+		font-size: 5em; 
+ 		text-transform: uppercase; 
+ 		text-shadow: -2px 2px 0 #a6acae;
+ 	}
+.ms-left .ms-section1 h1 span { display: block;border-radius: 10px;}
+.ms-section1 .txt { 
+	position: relative; 
+	left: -100%; 
+	top: 15%; 
+	opacity: 0; 
+	transition-duration: 0.5s;
+}
+.green-box {
+		 display: inline-block;
+		 margin-top: 30px;
+		 padding: 6px 10px;
+		 line-height: 1.2em; 
+		 font-size: 2.5em;
+		 background: url(img/9.jpg) 0 0 repeat; 
+		 *display: inline; zoom: 1;
+		}
+.grtb{
+	width:500px;height:auto;
+	font-size: 1.4rem;
+	color:gold;
+}
+.button { 
+	display: inline-block;
+	 margin-top: 30px; padding: 
+	 7px 73px 7px 25px; 
+	 font-size: 1.5em; 
+	 color: #fff; 
+	 text-decoration: none;
+	 background: url(img/10) right;
+	}
+.button2 { 
+	padding: 7px 25px 7px 60px; 
+	background: url(img/8.jpg) 0 no-repeat;
+}
+
+.ms-section .txt2 { 
+	position: relative; 
+	top: 20%;
+	 padding: 0 15%;
+	}
+.ms-section .txt2 h2 {
+		margin-bottom: 30px; 
+		font-size: 4em; 
+		line-height: 1.1em; 
+		text-shadow: -2px 2px 0 #a6acae;
+		text-transform: uppercase;
+	}
+.ms-section .txt2 h2 span { display: block;}
+.ms-section .txt2 h3 { margin: 20px 0; font-size: 2em;}
+.ms-section .txt2 p { font-size: 1.5em;}
+
+.ms-section2 .txt2 { 
+	position: absolute; 
+	left: 0; 
+	top: 75%; 
+	width: 100%;
+	padding: 0; 
+	text-align: center;
+}
+.ms-left .txt2 { left: -100%; transition-duration: 0.5s;}
+.ms-right .txt2 { letter-spacing: ; 100%; transition-duration: 0.5s;}
+
+.active .txt2 { left: 0; transition-delay: 1s;}
+.active .txt { left: 20%; opacity: 1; transition-delay: 1s;}
+
+#loading123 { 
+	position: absolute; 
+	left: 0; top: 0; 
+	width: 100%; height: 100%; 
+	background: #fff url(img/7.jpg) 50% no-repeat;
+}
+.ms-section10 a{
+	display: inline-block;
+	font-size: 2.7rem;
+	color:#fff;
+	margin-top:0.5rem;
+}
+.ms-section10 h3{
+	width:100%;height:10rem;
+	padding-top:10rem;
+	font-size: 2rem;
+	margin-top:3rem;
+}
+
+</style>
+</head>
+
+<body class="loading">
+	<div class="dowebok-Wrap">
+		<div class="ms-left">
+			<div class="ms-section ms-section1">
+				<div class="txt">
+					<h1><strong>宁兴 <span>13班</span></strong></h1>
+					<p class="green-box">年少轻狂的岁月</p>
+					<p class="green-box">刘晓燕</p>
+					<p class="grtb">班中最文静的你现在不知道怎么样了，当初的喜欢现在想来是那么的富有童趣意味，也许那就是所谓的情愫初开，所谓的暗恋吧！</p>
+				</div>
+			</div>
+			<div class="ms-section ms-section2">
+				<div class="txt2">
+					<h2>班级</h2>
+					<p>意气风发每一天</p>
+				</div>
+			</div>
+			<div class="ms-section ms-section3">
+				<div class="txt2">
+					<h2>刘学涛 <span>男生？</span> <span>怀疑中？</span></h2>
+					<h3>还记得你上厕所时的糗事吗？</h3>
+					<p>最初的时候认识你，你欺骗了所有人的感官认识，去厕所的时候才知道你丫的压根就是女生中的败类，去厕所差点没被女生们揍死，但是你还是出色的证明了你是女的，好吧，我承认我看走眼了</p>
+					<a class="button btn3l" href="javascript:">点赞</a>
+				</div>
+			</div>
+			<div class="ms-section ms-section4">
+			</div>
+			<div class="ms-section ms-section5">
+				<div class="txt2">
+					<h2>张芊 <span>俊俏</span> <span>妖娆</span></h2>
+					<h3>最让人无语的你，家中都是美女</h3>
+					<p>说过你家的姐妹，你排行老三，但各个都是美女。初中最后聚会时看到你家的另几个姑娘，真的是怔住了班级的男性牲口，我仿佛听见了咽口水的声音，而女生嘛：“嫉妒啊”！！！</p>
+					<a class="button" href="javascript:">给力</a>
+				</div>
+			</div>
+			<div class="ms-section ms-section6">
+				<div class="txt2">
+					<h2>王艳 <span>玉米杆</span> <span>大块头</span></h2>
+					<h3>吃着一样的饭，高度却是……</h3>
+					<p>也不知道你是吃激素长大的还是吃着大米饭长大的，那时候班上的很多人都在怀疑你妈是不是拿着盖中盖给你炒菜，维生素片给你熬粥了，那么五大三粗，生宽体胖的！！！</p>
+				</div>
+			</div>
+			<div class="ms-section ms-section7"></div>
+			<div class="ms-section ms-section8">
+				<div class="txt2">
+					<h2>王鹏举 <span>胖子</span> <span>活动的肉</span></h2>
+					<h3>一起上下学，却从未见你找过对象，你是哪方面有问题？</h3>
+					<p>说了多少次的要谈恋爱，你丫的是真的不会了还是压根就是自身有问题，还记得你追一个长得和煤球的姑娘不？人家现在已经结婚了，兄弟真替你难过。</p>
+					<a class="button" href="javascript:">纯真</a>
+				</div>
+			</div>
+			<div class="ms-section ms-section9">
+				<div class="txt2">
+					<h2>年轻 <span>张扬</span> <span>活力</span></h2>
+					<h3>回忆当初年华张扬的时光</h3>
+					<p>无论走多远不忘初心，不忘本真</p>
+					<a class="button" href="javascript:">那是年华</a>
+				</div>
+			</div>
+			<div class="ms-section ms-section10">
+				<div class="txt2">
+					<h2>回忆 <span>青春</span> <span>那一年</span><span>那些年</span></h2>
+					<p>那些回忆，总是让人有种怀念的意味，那些玩味的青春总是让人有种恋恋不舍的味道。</p>
+				</div>
+			</div>
+		</div>
+		<div class="ms-right">
+			<div class="ms-section ms-section1"></div>
+			<div class="ms-section ms-section2">
+				<div class="txt2">
+					<h2>张婷 美女</h2>
+					<p>我们班的班花</p>
+				</div>
+			</div>
+			<div class="ms-section ms-section3"></div>
+			<div class="ms-section ms-section4">
+				<div class="txt2">
+					<h2>薛亚丹 <span>娇俏 淘气</span></h2>
+					<h3>将青春的主调色张扬的一塌糊涂</h3>
+					<p>总是一副活力四射却又调皮的姑娘，现在回忆起来总是感觉还是没有长大的捣蛋顽童。</p>
+					<a class="button button2 btn42" href="javascript:">给你点赞</a>
+				</div>
+			</div>
+			<div class="ms-section ms-section5"></div>
+			<div class="ms-section ms-section6"></div>
+			<div class="ms-section ms-section7">
+				<div class="txt2">
+					<h2>是青春 ？<span>还是说</span> <span>太幼稚</span></h2>
+					<h3>大个子王艳</h3>
+					<p>班级中比男生还长得高的你，不知道现在是否已经成为人母，不过你的气质还是难掩你的高贵</p>
+					<a class="button button2" href="javascript:">13班壮汉</a>
+				</div>
+			</div>
+			<div class="ms-section ms-section8"></div>
+			<div class="ms-section ms-section9">
+				<div class="txt2">
+					<h2>班花 <span>俊女</span> <span>嘚瑟</span></h2>
+					<h3>两个班级的支柱性美女，吸引了多少男性牲口</h3>
+					<p>长的好看害的每次休息时间总有一堆陌生男同学在门上瞅你们，难道忘了李老师棍棒撵他们了吗？</p>
+					<a class="button button2" href="javascript:">风口浪尖</a>
+				</div>
+			</div>
+			<div class="ms-section ms-section10">
+				<h3>最后的最后,我喜欢上了现在班上的一个姑娘，可是只能看而不能追，失落中带着落魄，犹如枯槁老人。。</h3>
+				<a class="button" href="javascript:">让回忆随风走，我逆风而行</a>
+			</div>
+		</div>
+	</div>
+<script>
+$(function(){
+	$('#dowebok-Wrap').multiscroll({
+		verticalCentered: false
+	});
+
+	$('.btn42').on('click', function(){
+		$('.ms-left').find('.ms-section4').toggleClass('down');
+		var $thisTxt = $(this).html();
+		if($thisTxt == '唉……'){
+			$(this).html('哼！！！');
+		} else {
+			$(this).html('嘁');
+		}
+		return false;
+	});
+});
+
+//页面加载时的 Loading 效果
+$(window).load(function(){
+	window.setTimeout(function(){
+		$('body').removeClass('loading');
+	}, 2000);
+});
+</script>
+</body>
+</html>
